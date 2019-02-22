@@ -11,14 +11,18 @@ namespace PlayTimeTracker
 {
     public class Alert_PlayTimeTracker : Alert
     {
-        private readonly string descriptionString = "This timer tells you how much time you have spent from loading this savegame up till now.\n\nYou may want to avoid playing RimWorld in long intervals.";
+        private readonly string descriptionString = "SPT stands for Session Play Time.\n\n" +
+            "A session begins when you load a save, and ends when you Quit to OS or Quit to Main Menu.\n\n" +
+            "This timer tells you how much time you have spent in this RimWorld session.\n\n" +
+            "You may want to avoid playing long sessions of RimWorld.";
         /// <summary>
         /// Defines the time interval that the time-based color gradient is scaled on. Currently set to 5 hours.
         /// </summary>
-        private readonly int maxTimeForGradience = 5 * RimWorldTickingTime.TicksPerHour;
+        // private readonly int maxTimeForGradience = 5 * RimWorldTickingTime.TicksPerHour;
 
         private const float PulseFreq = 0.5f;
         private const float PulseAmpCritical = 0.6f;
+        private readonly TimeSpan maxTimeForGradient = new TimeSpan(5, 0, 0);
 
         public Alert_PlayTimeTracker()
         {
@@ -27,7 +31,7 @@ namespace PlayTimeTracker
 
         public override string GetLabel()
         {
-            return "T+ " + PlayTimeTrackerMain.TimeKeeperObjectInstance;
+            return "SPT T+ " + PlayTimeTrackerMain.SPTTObjectInstance.ToString();
         }
 
         public override string GetExplanation()
@@ -71,8 +75,8 @@ namespace PlayTimeTracker
         {
             get
             {
-                int elapsedTicks = PlayTimeTrackerMain.TimeKeeperObjectInstance.TotalTime;
-                float progression = Mathf.Clamp(((float)elapsedTicks) / maxTimeForGradience, 0, 1);
+                TimeSpan elapsedTime = PlayTimeTrackerMain.SPTTObjectInstance.ElapsedTime;
+                float progression = Mathf.Clamp((float)(elapsedTime.TotalMilliseconds / maxTimeForGradient.TotalMilliseconds), 0, 1);
                 float localProgression;
                 // Different progression results in different gradience
                 if (progression < 0.4f)

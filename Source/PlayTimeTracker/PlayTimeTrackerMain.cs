@@ -30,16 +30,11 @@ namespace PlayTimeTracker
 
         public override string ModIdentifier => MODID;
 
-        public static RimWorldTickingTime TimeKeeperObjectInstance { get; private set; }
+        public static RimWorldSPTT SPTTObjectInstance { get; private set; }
 
         public static void BeginOrResetCounting()
         {
-            TimeKeeperObjectInstance = new RimWorldTickingTime(0);
-        }
-
-        public override void Update()
-        {
-            TimeKeeperObjectInstance++;
+            SPTTObjectInstance = new RimWorldSPTT(DateTime.Now);
         }
     }
 }

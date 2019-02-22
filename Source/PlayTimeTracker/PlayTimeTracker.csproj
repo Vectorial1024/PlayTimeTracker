@@ -60,7 +60,7 @@
     <Compile Include="PostFix_LoadedPreviousGame.cs" />
     <Compile Include="PostFix_StartedNewGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RimWorldTickingTime.cs" />
+    <Compile Include="RimWorldSPTT.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
